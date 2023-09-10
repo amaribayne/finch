@@ -1,0 +1,28 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>Investments</h1>
+
+<!-- Form to enter a stock ticker -->
+<form action="/investments" method="post">
+  <label for="ticker">Stock Ticker:</label>
+  <input type="text" id="ticker" name="ticker" required />
+  <button type="submit">Add</button>
+</form>
+
+<!-- Display stock data if available -->
+{% if ticker %}
+<h2>Stock Ticker: {{ ticker }}</h2>
+<div class="investment-container">
+  <div class="investment-graph">{{ graph_html | safe }}</div>
+  {% if prices %}
+  <p class="stock-price">
+    Stock Price: <span style="color: yellow">${{ prices[0] }}</span>
+  </p>
+  {% endif %}
+</div>
+{% endif %}
+
+<!-- Display error message if stock data is not available -->
+{% if error %}
+<p>{{ error }}</p>
+{% endif %} {% endblock %}

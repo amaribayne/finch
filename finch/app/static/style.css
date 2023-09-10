@@ -1,0 +1,139 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-size: cover;
+  background-color: #1e1d1f;
+  text-align: center;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Styles for the main content area */
+.content {
+  flex: 1; /* Take up available space */
+}
+
+/* Styles for the navbar */
+.navbar {
+  display: flex;
+  align-items: center;
+  background-color: #1e1d1f;
+  padding: 10px 20px;
+}
+
+.logo img {
+  height: 40px;
+  padding-top: 5px;
+  padding-left: 15px;
+  padding-right: 12px;
+}
+
+.navbar-title {
+  font-size: 26px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.navbar-menu {
+  padding-left: 525px;
+  padding-right: 525px;
+}
+
+.navbar-menu a {
+  float: left;
+  color: #fff;
+  text-align: center;
+  padding: 7px;
+}
+
+.navbar-menu a:hover {
+  color: #adadad;
+}
+
+.separator {
+  background-color: #fff;
+  height: 2px;
+  margin-bottom: 10px;
+}
+
+/* Styles for the header section */
+.header {
+  text-align: center;
+  padding-top: 30px;
+}
+
+.header h1 {
+  font-size: 40px;
+  font-style: italic;
+}
+
+/* Styles for the tables */
+table {
+  margin: 0 auto;
+  border-collapse: collapse; /* Combine adjacent table borders */
+}
+
+table th,
+table td {
+  padding: 8px;
+}
+
+table tr {
+  border-bottom: 1px solid #ccc;
+}
+
+/* Adjust spacing between rows */
+table tbody tr:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+/* Style for the container that holds the table and graph */
+.expenses-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 20px;
+}
+
+.expenses-table {
+  width: 40%;
+}
+
+/* Style for the expenses graph */
+.expenses-graph-container {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0px 0;
+}
+
+.expense-graph {
+  width: 100%;
+  padding: 10px;
+  aspect-ratio: 1;
+}
+
+/* Style for investments */
+.investment-container {
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column-reverse; /* Stack elements vertically */
+  align-items: center;
+  justify-content: center;
+}
+
+.investment-graph {
+  width: 100%;
+  max-width: 700px;
+  aspect-ratio: 1;
+  padding-bottom: 10px;
+}
+
+.stock-price {
+  font-size: 20px;
+}

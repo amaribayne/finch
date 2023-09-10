@@ -1,0 +1,32 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>Goals</h1>
+
+<h2>Work in Progress</h2>
+
+<!-- Form to enter a financial goal -->
+<form action="/goals" method="post">
+  <label for="income">Income:</label>
+  <input type="number" id="income" name="income" step="0.01" required />
+
+  <label for="goal_price">Goal Price:</label>
+  <input type="number" id="goal_price" name="goal_price" step="0.01" required />
+
+  <label for="description">Description:</label>
+  <input type="text" id="description" name="description" required />
+
+  <button type="submit">Add</button>
+</form>
+
+<!-- Display stored goals and calculated time to reach each goal -->
+{% if goals %}
+<h2>Goals:</h2>
+<ul>
+  {% for goal in goals %}
+  <dl>
+    Goal: {{ goal.description }}, Time to reach: {{ goal.time_to_reach_goal.days
+    }}
+  </dl>
+  {% endfor %}
+</ul>
+{% endif %} {% endblock %}

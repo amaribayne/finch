@@ -1,0 +1,114 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>Expenses</h1>
+
+<!-- Form to add a new expense -->
+<form action="/add_expense" method="post">
+  <!-- Input field for selecting the month -->
+  <label for="month">Month:</label>
+  <select id="month" name="month" required>
+    <option value="" disabled selected>Select a month</option>
+    {% for month, _ in month_mapping.items() %}
+    <option value="{{ month }}">{{ month }}</option>
+    {% endfor %}
+  </select>
+
+  <!-- Input field for entering the amount -->
+  <label for="amount">Amount:</label>
+  <input type="number" id="amount" name="amount" step="0.01" required />
+
+  <!-- Input field for entering the description -->
+  <label for="description">Description:</label>
+  <input type="text" id="description" name="description" required />
+
+  <!-- Submit button to add the expense -->
+  <button type="submit">Add</button>
+</form>
+
+<!-- Container for table and graph -->
+<div class="expenses-container">
+  <div class="expenses-table">
+    <h2>Expense Table</h2>
+
+    <!-- Table to display the list of expenses -->
+    <table>
+      <thead>
+        <tr>
+          <th>Month</th>
+          <th>Amount</th>
+          <th>Description</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for month in sorted_months %} {% set expenses =
+        grouped_expenses[month] %}
+        <!-- First row for each month -->
+        <tr>
+          <td rowspan="{{ expenses|length }}">{{ month }}</td>
+          <td>${{ expenses[0].amount }}</td>
+          <td>{{ expenses[0].description }}</td>
+          <td>
+            <!-- Edit and delete buttons for the first expense -->
+            <form
+              style="display: inline-block"
+              action="{{ url_for('routes.edit_expense', expense_index=expenses[0].id) }}"
+              method="get"
+            >
+              <button type="submit">Edit</button>
+            </form>
+            <form
+              style="display: inline-block"
+              action="{{ url_for('routes.delete_expense', expense_index=expenses[0].id) }}"
+              method="post"
+            >
+              <button type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+        <!-- Additional rows for other expenses of the same month -->
+        {% for expense in expenses[1:] %}
+        <tr>
+          <td>${{ expense.amount }}</td>
+          <td>{{ expense.description }}</td>
+          <td>
+            <!-- Edit and delete buttons for other expenses -->
+            <form
+              style="display: inline-block"
+              action="{{ url_for('routes.edit_expense', expense_index=expense.id) }}"
+              method="get"
+            >
+              <button type="submit">Edit</button>
+            </form>
+            <form
+              style="display: inline-block"
+              action="{{ url_for('routes.delete_expense', expense_index=expense.id) }}"
+              method="post"
+            >
+              <button type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+        <!-- Row for displaying the total amount spent for the month -->
+        <tr>
+          <td>
+            Total:
+            <span style="color: yellow"
+              >${{ expenses|sum(attribute='amount') }}</span
+            >
+          </td>
+          <td colspan="2"></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="expenses-graph-container">
+    <h2>Expense Graph</h2>
+    <div class="expenses-graph">{{ graph_html | safe }}</div>
+  </div>
+</div>
+
+{% endblock %}

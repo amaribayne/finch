@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <!-- Heading for the edit expense page -->
+    <h1>Edit Expense</h1>
+
+    <!-- Form to edit an expense -->
+    <form
+      action="{{ url_for('routes.edit_expense', expense_index=expense.id) }}"
+      method="post"
+    >
+      <!-- Month dropdown menu -->
+      <label for="month">Month:</label>
+      <select id="month" name="month" required>
+        <option value="" disabled>Select a month</option>
+        {% for month, _ in month_mapping.items() %}
+        <option value="{{ month }}" {% if expense.month == month %}selected{% endif %}>{{ month }}</option>
+        {% endfor %}
+      </select>
+
+      <!-- Amount input field -->
+      <label for="amount">Amount:</label>
+      <input
+        type="number"
+        id="amount"
+        name="amount"
+        step="0.01"
+        required
+        value="{{ expense.amount }}"
+      />
+
+      <!-- Description input field -->
+      <label for="description">Description:</label>
+      <input
+        type="text"
+        id="description"
+        name="description"
+        required
+        value="{{ expense.description }}"
+      />
+
+      <!-- Save button to update the expense -->
+      <button type="submit">Save</button>
+    </form>
+
+    <!-- Back button (optional) -->
+    <!-- <a href="{{ url_for('routes.home') }}">Back to Expenses</a> -->
+  </body>
+
+{% endblock %}
